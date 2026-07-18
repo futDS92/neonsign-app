@@ -1,6 +1,6 @@
 # Neon Sign Studio
 
-Web prototype for typing text and live-tuning neon sign effects.
+`neonsign-app` repository for a web prototype that turns typed text into a live neon sign.
 
 ## Stack
 
@@ -13,7 +13,7 @@ Web prototype for typing text and live-tuning neon sign effects.
 - `src/state` owns the neon config model
 - `src/data` stores presets
 - `src/components` contains the editor and preview UI
-- `src/styles` keeps the global visual language
+- `src/styles` keeps the visual language
 
 ## Start
 
