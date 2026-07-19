@@ -445,6 +445,71 @@ button {
   box-shadow: 0 0 0 4px rgba(255, 59, 191, 0.12);
 }
 
+.segmented-control {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.segment,
+.motion-mode-card {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.025);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.segment {
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: grid;
+  gap: 2px;
+}
+
+.segment span {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.segment small {
+  color: rgba(241, 244, 255, 0.52);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.segment.is-active,
+.motion-mode-card.is-active {
+  border-color: rgba(255, 59, 191, 0.38);
+  box-shadow: 0 0 0 1px rgba(255, 59, 191, 0.08);
+  background: rgba(255, 59, 191, 0.08);
+}
+
+.motion-mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.motion-mode-card {
+  min-height: 58px;
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: grid;
+  gap: 4px;
+}
+
+.motion-mode-name {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.motion-mode-desc {
+  font-size: 10px;
+  line-height: 1.35;
+  color: rgba(241, 244, 255, 0.52);
+}
+
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;

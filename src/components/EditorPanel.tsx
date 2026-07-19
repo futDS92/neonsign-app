@@ -1,6 +1,11 @@
 import { PresetPicker } from './PresetPicker';
 import { EffectSlider } from './EffectSlider';
-import type { NeonConfig, NeonMotionMode, NeonPreset } from '@/state/neon';
+import type {
+  NeonConfig,
+  NeonMotionMode,
+  NeonMotionSpace,
+  NeonPreset,
+} from '@/state/neon';
 
 type EditorPanelProps = {
   config: NeonConfig;
@@ -19,13 +24,33 @@ function updateConfig(
 }
 
 const motionModes: Array<{ id: NeonMotionMode; label: string; description: string }> = [
-  { id: 'float', label: 'Float', description: 'Soft floating drift' },
+  { id: 'hover', label: 'Hover', description: 'Soft floating drift' },
   { id: 'bounce', label: 'Bounce', description: 'Vertical up and down' },
   { id: 'sway', label: 'Sway', description: 'Side to side motion' },
+  { id: 'flow', label: 'Flow', description: 'Horizontal stream effect' },
+  { id: 'ribbon', label: 'Ribbon', description: 'Loose flowing wave' },
+  { id: 'stream', label: 'Stream', description: 'Fast flowing pull' },
+  { id: 'orbit', label: 'Orbit', description: 'Circular drift around center' },
   { id: 'drift', label: 'Drift', description: 'Slow ambient movement' },
   { id: 'depth', label: 'Depth', description: 'Front and back feel' },
   { id: 'jitter', label: 'Jitter', description: 'Tighter handheld buzz' },
 ];
+
+const motionGroups: Record<
+  NeonMotionSpace,
+  { label: string; description: string; modes: NeonMotionMode[] }
+> = {
+  stationary: {
+    label: 'Stationary',
+    description: 'Keep the sign centered',
+    modes: ['hover', 'bounce', 'sway', 'depth', 'jitter'],
+  },
+  flowing: {
+    label: 'Flowing',
+    description: 'Let the sign slide and drift',
+    modes: ['flow', 'ribbon', 'stream', 'orbit', 'drift'],
+  },
+};
 
 export function EditorPanel({
   config,
@@ -182,23 +207,57 @@ export function EditorPanel({
               }
             />
           </label>
+        </div>
+
+        <div className="wing-section">
+          <p className="wing-label">Motion</p>
+          <label className="field">
+            <span>Motion type</span>
+            <div className="segmented-control">
+              {(Object.keys(motionGroups) as NeonMotionSpace[]).map((space) => {
+                const active = config.motionSpace === space;
+                const group = motionGroups[space];
+                return (
+                  <button
+                    key={space}
+                    type="button"
+                    className={`segment ${active ? 'is-active' : ''}`}
+                    onClick={() =>
+                      updateConfig(config, onChange, {
+                        motionSpace: space,
+                        motionMode: group.modes.includes(config.motionMode)
+                          ? config.motionMode
+                          : group.modes[0],
+                      })
+                    }
+                  >
+                    <span>{group.label}</span>
+                    <small>{group.description}</small>
+                  </button>
+                );
+              })}
+            </div>
+          </label>
 
           <label className="field">
-            <span>Motion style</span>
-            <select
-              value={config.motionMode}
-              onChange={(event) =>
-                updateConfig(config, onChange, {
-                  motionMode: event.target.value as NeonMotionMode,
-                })
-              }
-            >
-              {motionModes.map((mode) => (
-                <option key={mode.id} value={mode.id}>
-                  {mode.label} · {mode.description}
-                </option>
-              ))}
-            </select>
+            <span>Motion shape</span>
+            <div className="motion-mode-grid">
+              {motionGroups[config.motionSpace].modes.map((mode) => {
+                const active = config.motionMode === mode;
+                const option = motionModes.find((item) => item.id === mode);
+                return (
+                  <button
+                    key={mode}
+                    type="button"
+                    className={`motion-mode-card ${active ? 'is-active' : ''}`}
+                    onClick={() => updateConfig(config, onChange, { motionMode: mode })}
+                  >
+                    <span className="motion-mode-name">{option?.label ?? mode}</span>
+                    <span className="motion-mode-desc">{option?.description ?? ''}</span>
+                  </button>
+                );
+              })}
+            </div>
           </label>
 
           <label className="field">
@@ -211,6 +270,20 @@ export function EditorPanel({
               value={config.motion}
               onChange={(event) =>
                 updateConfig(config, onChange, { motion: Number(event.target.value) })
+              }
+            />
+          </label>
+
+          <label className="field">
+            <span>Motion speed</span>
+            <input
+              type="range"
+              min={0.2}
+              max={1.8}
+              step={0.01}
+              value={config.motionSpeed}
+              onChange={(event) =>
+                updateConfig(config, onChange, { motionSpeed: Number(event.target.value) })
               }
             />
           </label>
