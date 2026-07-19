@@ -21,91 +21,92 @@ export function NeonText({ config }: NeonTextProps) {
       setFlicker(Math.max(0.65, pulse));
       const drift = config.motion;
       const speed = config.motionSpeed;
-      const time = frame * 0.02 * speed;
+      const time = frame * 0.03 * (0.55 + speed * 1.15);
       const jitterSeed = Math.sin(frame * 0.91) + Math.cos(frame * 1.47);
       const traveling = config.motionSpace === 'flowing';
-      const stretch = traveling ? 1.6 : 1;
+      const stretch = traveling ? 2.3 : 1.55;
+      const intensity = drift * (traveling ? 2.2 : 1.75);
 
       switch (config.motionMode) {
         case 'bounce':
           setMotion({
-            x: Math.sin(time * 0.7) * drift * 2 * stretch,
-            y: -Math.abs(Math.sin(time * 2.2)) * drift * 16,
-            rotate: Math.sin(time * 0.7) * drift * 1.2,
-            scale: 1 + Math.abs(Math.sin(time * 2.2)) * drift * 0.04,
+            x: Math.sin(time * 0.75) * intensity * 5 * stretch,
+            y: -Math.abs(Math.sin(time * 2.3)) * intensity * 34,
+            rotate: Math.sin(time * 0.75) * intensity * 4,
+            scale: 1 + Math.abs(Math.sin(time * 2.3)) * intensity * 0.1,
           });
           break;
         case 'sway':
           setMotion({
-            x: Math.sin(time * 2.1) * drift * 14 * stretch,
-            y: Math.cos(time * 0.9) * drift * 3,
-            rotate: Math.sin(time * 1.2) * drift * 2.8,
-            scale: 1 + Math.sin(time * 0.8) * drift * 0.02,
+            x: Math.sin(time * 2.2) * intensity * 20 * stretch,
+            y: Math.cos(time * 1.0) * intensity * 5,
+            rotate: Math.sin(time * 1.2) * intensity * 4.2,
+            scale: 1 + Math.sin(time * 0.8) * intensity * 0.06,
           });
           break;
         case 'flow':
           setMotion({
-            x: Math.sin(time * 1.7) * drift * (18 + 8 * stretch) + Math.sin(time * 0.35) * drift * 6,
-            y: Math.sin(time * 0.55) * drift * 3,
-            rotate: Math.sin(time * 0.5) * drift * 1.4,
-            scale: 1 + Math.sin(time * 0.4) * drift * 0.012,
+            x: Math.sin(time * 1.8) * intensity * (26 + 10 * stretch) + Math.sin(time * 0.35) * intensity * 10,
+            y: Math.sin(time * 0.55) * intensity * 5,
+            rotate: Math.sin(time * 0.55) * intensity * 3.2,
+            scale: 1 + Math.sin(time * 0.4) * intensity * 0.03,
           });
           break;
         case 'ribbon':
           setMotion({
-            x: Math.sin(time * 1.1) * drift * (14 + 10 * stretch),
-            y: Math.sin(time * 1.9) * drift * 6,
-            rotate: Math.sin(time * 0.9) * drift * 2.4,
-            scale: 1 + Math.sin(time * 0.55) * drift * 0.018,
+            x: Math.sin(time * 1.15) * intensity * (22 + 12 * stretch),
+            y: Math.sin(time * 2.0) * intensity * 10,
+            rotate: Math.sin(time * 0.95) * intensity * 4,
+            scale: 1 + Math.sin(time * 0.55) * intensity * 0.04,
           });
           break;
         case 'stream':
           setMotion({
-            x: Math.sin(time * 0.45) * drift * (24 + 12 * stretch) + time * drift * 4,
-            y: Math.sin(time * 0.75) * drift * 4,
-            rotate: Math.sin(time * 0.3) * drift * 1.1,
-            scale: 1 + Math.sin(time * 0.25) * drift * 0.01,
+            x: Math.sin(time * 0.45) * intensity * (34 + 16 * stretch) + time * intensity * 10,
+            y: Math.sin(time * 0.75) * intensity * 6,
+            rotate: Math.sin(time * 0.3) * intensity * 2.2,
+            scale: 1 + Math.sin(time * 0.25) * intensity * 0.03,
           });
           break;
         case 'orbit':
           setMotion({
-            x: Math.sin(time * 1.25) * drift * (10 + 8 * stretch),
-            y: Math.cos(time * 1.25) * drift * (8 + 4 * stretch),
-            rotate: Math.sin(time * 1.25) * drift * 2,
-            scale: 1 + Math.sin(time * 1.25) * drift * 0.016,
+            x: Math.sin(time * 1.25) * intensity * (18 + 10 * stretch),
+            y: Math.cos(time * 1.25) * intensity * (14 + 8 * stretch),
+            rotate: Math.sin(time * 1.25) * intensity * 3.6,
+            scale: 1 + Math.sin(time * 1.25) * intensity * 0.03,
           });
           break;
         case 'drift':
           setMotion({
-            x: Math.sin(time * 0.9) * drift * (10 + 8 * stretch) + Math.cos(time * 0.3) * drift * 4,
-            y: Math.sin(time * 0.6) * drift * 7,
-            rotate: Math.cos(time * 0.35) * drift * 1.2,
-            scale: 1 + Math.sin(time * 0.45) * drift * 0.018,
+            x: Math.sin(time * 0.9) * intensity * (14 + 10 * stretch) + Math.cos(time * 0.3) * intensity * 6,
+            y: Math.sin(time * 0.6) * intensity * 10,
+            rotate: Math.cos(time * 0.35) * intensity * 2.1,
+            scale: 1 + Math.sin(time * 0.45) * intensity * 0.04,
           });
           break;
         case 'depth':
           setMotion({
-            x: Math.sin(time * 0.5) * drift * 5 * stretch,
-            y: Math.cos(time * 0.4) * drift * 4,
-            rotate: Math.sin(time * 0.45) * drift * 0.9,
-            scale: 1 + Math.sin(time * 1.8) * drift * 0.09,
+            x: Math.sin(time * 0.5) * intensity * 10 * stretch,
+            y: Math.cos(time * 0.4) * intensity * 8,
+            rotate: Math.sin(time * 0.45) * intensity * 2.2,
+            scale: 1 + Math.sin(time * 1.8) * intensity * 0.16,
           });
           break;
         case 'jitter':
           setMotion({
-            x: jitterSeed * drift * 7 * stretch,
-            y: Math.cos(frame * 1.13) * drift * 5,
-            rotate: Math.sin(frame * 0.83) * drift * 4,
-            scale: 1 + Math.sin(frame * 0.31) * drift * 0.02,
+            x: jitterSeed * intensity * 14 * stretch,
+            y: Math.cos(frame * 1.13) * intensity * 8,
+            rotate: Math.sin(frame * 0.83) * intensity * 8,
+            scale: 1 + Math.sin(frame * 0.31) * intensity * 0.05,
           });
           break;
         case 'hover':
         default:
           setMotion({
-            x: Math.sin(time * 1.4) * drift * 8 * stretch,
-            y: Math.cos(time * 1.1) * drift * 6,
-            rotate: Math.sin(time * 0.9) * drift * 1.8,
-            scale: 1 + Math.sin(time * 0.65) * drift * 0.015,
+            x: Math.sin(time * 1.4) * intensity * 12 * stretch,
+            y: Math.cos(time * 1.1) * intensity * 9,
+            rotate: Math.sin(time * 0.9) * intensity * 3.2,
+            scale: 1 + Math.sin(time * 0.65) * intensity * 0.04,
           });
           break;
       }
