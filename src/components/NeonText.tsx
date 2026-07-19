@@ -82,7 +82,7 @@ export function NeonText({ config }: NeonTextProps) {
       cancelled = true;
       cancelAnimationFrame(handle);
     };
-  }, [config.flicker, config.motion]);
+  }, [config.flicker, config.motion, config.motionMode]);
 
   return (
     <div
