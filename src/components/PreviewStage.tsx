@@ -1,12 +1,11 @@
 import { NeonText } from './NeonText';
-import type { NeonConfig, NeonPreset } from '@/state/neon';
+import type { NeonConfig } from '@/state/neon';
 
 type PreviewStageProps = {
   config: NeonConfig;
-  preset: NeonPreset;
 };
 
-export function PreviewStage({ config, preset }: PreviewStageProps) {
+export function PreviewStage({ config }: PreviewStageProps) {
   return (
     <div
       className="preview-stage"

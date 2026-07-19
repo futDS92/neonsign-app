@@ -1,6 +1,6 @@
 import { PresetPicker } from './PresetPicker';
 import { EffectSlider } from './EffectSlider';
-import type { NeonConfig, NeonPreset } from '@/state/neon';
+import type { NeonConfig, NeonMotionMode, NeonPreset } from '@/state/neon';
 
 type EditorPanelProps = {
   config: NeonConfig;
@@ -18,6 +18,15 @@ function updateConfig(
   onChange({ ...config, ...patch });
 }
 
+const motionModes: Array<{ id: NeonMotionMode; label: string; description: string }> = [
+  { id: 'float', label: 'Float', description: 'Soft floating drift' },
+  { id: 'bounce', label: 'Bounce', description: 'Vertical up and down' },
+  { id: 'sway', label: 'Sway', description: 'Side to side motion' },
+  { id: 'drift', label: 'Drift', description: 'Slow ambient movement' },
+  { id: 'depth', label: 'Depth', description: 'Front and back feel' },
+  { id: 'jitter', label: 'Jitter', description: 'Tighter handheld buzz' },
+];
+
 export function EditorPanel({
   config,
   presets,
@@ -33,13 +42,14 @@ export function EditorPanel({
         onClick={onToggleCollapsed}
         aria-label={collapsed ? 'Expand wing' : 'Collapse wing'}
       >
+        <span className="wing-toggle-label">Setting</span>
         <span className="wing-toggle-icon">{collapsed ? '›' : '‹'}</span>
       </button>
 
       <div className="panel wing-panel">
         <div className="panel-header">
           <div>
-            <p className="panel-kicker">Wing</p>
+            <p className="panel-kicker">Setting</p>
             <h2>Controls</h2>
           </div>
           <div className="panel-chip">toggle</div>
@@ -87,7 +97,7 @@ export function EditorPanel({
           <PresetPicker
             presets={presets}
             activePresetId={config.presetId}
-            onSelect={(preset) =>
+              onSelect={(preset) =>
               onChange({
                 ...config,
                 presetId: preset.id,
@@ -97,6 +107,8 @@ export function EditorPanel({
                 glowBlur: preset.glowBlur,
                 strokeWidth: preset.strokeWidth,
                 flicker: preset.flicker,
+                motion: preset.motion,
+                motionMode: preset.motionMode,
                 background: preset.background,
               })
             }
@@ -172,7 +184,25 @@ export function EditorPanel({
           </label>
 
           <label className="field">
-            <span>Motion</span>
+            <span>Motion style</span>
+            <select
+              value={config.motionMode}
+              onChange={(event) =>
+                updateConfig(config, onChange, {
+                  motionMode: event.target.value as NeonMotionMode,
+                })
+              }
+            >
+              {motionModes.map((mode) => (
+                <option key={mode.id} value={mode.id}>
+                  {mode.label} · {mode.description}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="field">
+            <span>Motion intensity</span>
             <input
               type="range"
               min={0}
@@ -187,7 +217,7 @@ export function EditorPanel({
         </div>
 
         <div className="control-hint">
-          Tip: glow strength above 72% and blur around 16px gives the most sign-like look.
+          Tip: glow strength above 72% and blur around 16px gives the strongest sign feel.
         </div>
       </div>
     </aside>

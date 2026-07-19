@@ -1,5 +1,7 @@
 export type NeonPresetId = string;
 
+export type NeonMotionMode = 'float' | 'bounce' | 'sway' | 'drift' | 'depth' | 'jitter';
+
 export type NeonPreset = {
   id: NeonPresetId;
   name: string;
@@ -11,6 +13,7 @@ export type NeonPreset = {
   strokeWidth: number;
   flicker: number;
   motion: number;
+  motionMode: NeonMotionMode;
   background: string;
 };
 
@@ -28,6 +31,7 @@ export type NeonConfig = {
   strokeWidth: number;
   flicker: number;
   motion: number;
+  motionMode: NeonMotionMode;
   background: string;
 };
 
@@ -45,5 +49,6 @@ export const defaultNeonConfig: NeonConfig = {
   strokeWidth: 4,
   flicker: 0.14,
   motion: 0.08,
+  motionMode: 'float',
   background: '#05050a',
 };

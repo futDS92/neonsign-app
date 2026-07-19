@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { presets } from '@/data/presets';
 import { defaultNeonConfig, type NeonConfig } from '@/state/neon';
 import { EditorPanel } from '@/components/EditorPanel';
@@ -8,11 +8,6 @@ import { PreviewStage } from '@/components/PreviewStage';
 export default function App() {
   const [config, setConfig] = useState<NeonConfig>(defaultNeonConfig);
   const [isWingCollapsed, setIsWingCollapsed] = useState(false);
-
-  const activePreset = useMemo(
-    () => presets.find((preset) => preset.id === config.presetId) ?? presets[0],
-    [config.presetId],
-  );
 
   return (
     <main
@@ -32,12 +27,11 @@ export default function App() {
         <div className="topbar-meta topbar-float">
           <span>React</span>
           <span>TypeScript</span>
-          <span>Live Neon</span>
         </div>
       </header>
 
       <section className="stage-shell">
-        <PreviewStage config={config} preset={activePreset} />
+        <PreviewStage config={config} />
         <EditorPanel
           config={config}
           presets={presets}

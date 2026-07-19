@@ -12,6 +12,7 @@ export const presets: NeonPreset[] = [
     strokeWidth: 4,
     flicker: 0.14,
     motion: 0.08,
+    motionMode: 'float',
     background: '#05050a',
   },
   {
@@ -24,7 +25,8 @@ export const presets: NeonPreset[] = [
     glowBlur: 20,
     strokeWidth: 3,
     flicker: 0.08,
-    motion: 0.06,
+    motion: 0.1,
+    motionMode: 'sway',
     background: '#03111a',
   },
   {
@@ -37,7 +39,8 @@ export const presets: NeonPreset[] = [
     glowBlur: 16,
     strokeWidth: 4,
     flicker: 0.11,
-    motion: 0.05,
+    motion: 0.11,
+    motionMode: 'bounce',
     background: '#120903',
   },
   {
@@ -50,7 +53,8 @@ export const presets: NeonPreset[] = [
     glowBlur: 22,
     strokeWidth: 3,
     flicker: 0.2,
-    motion: 0.12,
+    motion: 0.18,
+    motionMode: 'jitter',
     background: '#061006',
   },
   {
@@ -63,7 +67,8 @@ export const presets: NeonPreset[] = [
     glowBlur: 14,
     strokeWidth: 2,
     flicker: 0.05,
-    motion: 0.04,
+    motion: 0.07,
+    motionMode: 'depth',
     background: '#070814',
   },
 ];
