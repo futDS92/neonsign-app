@@ -7,6 +7,7 @@ type NeonTextProps = {
 
 export function NeonText({ config }: NeonTextProps) {
   const [flicker, setFlicker] = useState(1);
+  const [motion, setMotion] = useState({ x: 0, y: 0, rotate: 0 });
 
   useEffect(() => {
     let frame = 0;
@@ -18,6 +19,12 @@ export function NeonText({ config }: NeonTextProps) {
       const wobble = Math.sin(frame * 0.12) * config.flicker;
       const pulse = 1 - Math.max(0, wobble);
       setFlicker(Math.max(0.65, pulse));
+      const drift = config.motion;
+      setMotion({
+        x: Math.sin(frame * 0.035) * drift * 8,
+        y: Math.cos(frame * 0.028) * drift * 6,
+        rotate: Math.sin(frame * 0.02) * drift * 1.8,
+      });
       requestAnimationFrame(tick);
     };
 
@@ -26,7 +33,7 @@ export function NeonText({ config }: NeonTextProps) {
       cancelled = true;
       cancelAnimationFrame(handle);
     };
-  }, [config.flicker]);
+  }, [config.flicker, config.motion]);
 
   return (
     <div
@@ -39,6 +46,9 @@ export function NeonText({ config }: NeonTextProps) {
         ['--neon-glow-blur' as string]: `${config.glowBlur}px`,
         ['--neon-stroke' as string]: `${config.strokeWidth}px`,
         ['--neon-flicker' as string]: flicker,
+        ['--neon-motion-x' as string]: `${motion.x}px`,
+        ['--neon-motion-y' as string]: `${motion.y}px`,
+        ['--neon-motion-rotate' as string]: `${motion.rotate}deg`,
         textAlign: config.align,
         fontFamily: config.fontFamily,
         fontSize: `${config.fontSize}px`,

@@ -18,14 +18,6 @@ export function PreviewStage({ config, preset }: PreviewStageProps) {
         <div className="frame-orb frame-orb-a" aria-hidden="true" />
         <div className="frame-orb frame-orb-b" aria-hidden="true" />
         <div className="frame-grid" aria-hidden="true" />
-        <div className="preview-meta">
-          <p>{preset.name}</p>
-          <span>{preset.description}</span>
-        </div>
-        <div className="preview-ribbon">
-          <span>LIVE</span>
-          <span>NEON OUTPUT</span>
-        </div>
         <NeonText config={config} />
       </div>
     </div>

@@ -10,6 +10,7 @@ export type NeonPreset = {
   glowBlur: number;
   strokeWidth: number;
   flicker: number;
+  motion: number;
   background: string;
 };
 
@@ -26,6 +27,7 @@ export type NeonConfig = {
   glowBlur: number;
   strokeWidth: number;
   flicker: number;
+  motion: number;
   background: string;
 };
 
@@ -42,5 +44,6 @@ export const defaultNeonConfig: NeonConfig = {
   glowBlur: 18,
   strokeWidth: 4,
   flicker: 0.14,
+  motion: 0.08,
   background: '#05050a',
 };
